@@ -1,0 +1,46 @@
+<div>
+  <nav class="header-top navbar-dark bg-dark">
+    <a class="navbar-brand">.msg</a>
+    <div *ngIf='!loggedin'>
+      <form (ngSubmit)="submitForm()"
+            #formControl="ngForm"
+            #formElement>
+        <fieldset [disabled]="formControl.submitted && !wrongUsercredentials">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <label for="usernameInput">username</label>
+                <input type="text"
+                       #usernameElement
+                       #usernameControl="ngModel"
+                       name="username"
+                       minlength="3"
+                       pattern="[a-z]+"
+                       id="usernameInput"
+                       class="form-control"
+                       required
+                       [(ngModel)]="userModel.userName">
+              </div>
+              <div class="col">
+                <label for="passwordInput">password</label>
+                <input type="password"
+                       #passwordElement
+                       name="password"
+                       id="passwordInput"
+                       class="form-control"
+                       required
+                       [(ngModel)]="userModel.password">
+              </div>
+              <div class="col">
+              <button type="submit"
+                      [disabled]="formControl.invalid"
+                      class="btn btn-primary">Submit!
+              </button>
+            </div>
+          </div>
+    </div>
+    </fieldset>
+    </form>
+    </div>
+  </nav>
+</div>
