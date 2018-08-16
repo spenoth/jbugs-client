@@ -9,7 +9,7 @@ import {LSKEY, TOKENKEY, UserData, UserService} from '../user.service';
 export class LoginComponent implements OnInit {
 
   loggedin = false;
-  wrongUsercredentials = false;
+  wrongCredentials = false;
   userModel: UserData;
   userList: UserData[];
   constructor(private userService: UserService) {
@@ -20,19 +20,24 @@ export class LoginComponent implements OnInit {
     this.loggedin = false;
   }
 
-  submitForm() {
+  submitForm(formControl) {
+    this.wrongCredentials = false;
     console.log('Form was submitted with the following data:' +
       JSON.stringify(this.userModel));
     this.userService.validateUserCredentials(this.userModel.userName,
       this.userModel.password).subscribe((response) => {
-      console.log('credentials are valid is : ' + response);
-      if (response) {
-        this.login(response);
-      } else {
-        this.loggedin = false;
-        this.wrongUsercredentials = true;
-      }
-    });
+        if (response) {
+          localStorage.setItem(LSKEY, this.userModel.userName);
+          localStorage.setItem(TOKENKEY, response.token);
+        } else {
+          this.wrongCredentials = true;
+        }
+        formControl.reset();
+      },
+      (error) => {
+        formControl.reset();
+        this.wrongCredentials = true;
+      });
   }
 
   logoutForm() {
