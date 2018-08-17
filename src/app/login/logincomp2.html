@@ -1,0 +1,24 @@
+<div>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="row w-100 justify-content-around">
+			<div class="col-sm-8">
+				<a class="navbar-brand" href="#">.msg</a>
+			</div>
+			<div>
+			<div class="col-sm-2">
+				<label class="row" for="usernameInput">Username:</label> 
+				<input class="row" type="text"
+					#usernameElement #usernameControl="ngModel" name="username"
+					minlength="3" pattern="[a-z]+" id="usernameInput" required
+					[(ngModel)]="userModel.userName">
+			</div>
+			<div class="col-sm-2">
+				<label class="row" for="passwordInput">Password:</label> 
+				<input type="password" class="row"
+					#passwordElement name="password" id="passwordInput" required
+					[(ngModel)]="userModel.password">
+			</div>
+			</div>
+		</div>
+	</nav>
+</div>
